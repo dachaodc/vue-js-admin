@@ -10,13 +10,13 @@
         <el-input placeholder="请输入账号" v-model="account">
           <template slot="prepend">账号</template>
         </el-input>
-        <el-input class="input-password" show-password placeholder="请输入密码" v-model="passworrd">
+        <el-input class="input-password" show-password placeholder="请输入密码" v-model="password">
           <template slot="prepend">密码</template>
         </el-input>
         <div class="forget">
-          <span>忘记登录密码？</span>
+          <a href="https://github.com/dachaodc">忘记登录密码？</a>
         </div>
-        <el-button class="login" type="primary">登录</el-button>
+        <el-button class="login" type="primary" @click="loginSys">登录</el-button>
         <div class="forget">
           <a href="https://github.com/dachaodc">免费注册</a>
         </div>
@@ -36,15 +36,15 @@
         activeIndex: 0,   // 选择登陆 索引
         qrcode: {},
         account: '',
-        passworrd: ''
+        password: ''
       }
     },
     mounted () {
       this.qrcode = document.getElementById('qrcode')
       new QRCode(this.qrcode, {
         text: 'https://github.com/dachaodc',
-        width: window.innerWidth * 0.15,
-        height: window.innerWidth * 0.15,
+        width: 200,
+        height: 200,
         colorDark: '#000000',
         colorLight: '#ffffff'
       })
@@ -52,6 +52,21 @@
     methods: {
       clickLogin (type) {
         this.activeIndex = type
+      },
+      loginSys () {
+        if (!this.account) {
+          return this.$message.warning('请输入账户')
+        }
+        if (!this.password) {
+          return this.$message.warning('请输入密码')
+        }
+        if (this.account != 1) {
+          return this.$message.error('账户错误')
+        }
+        if (this.password != 1) {
+          return this.$message.error('密码错误')
+        }
+        location.href = '/'
       }
     }
   }
@@ -72,8 +87,8 @@
          #20277825, #52266325, #8a244b25);*/
 
     .login-box {
-      width: 25vw;
-      height: 25vw;
+      width: 350px;
+      height: 340px;
       background: rgba(0, 0, 0, 0.1);
       position: absolute;
       top: 15%;
@@ -104,8 +119,8 @@
       }
 
       #qrcode {
-        width: 15vw;
-        height: 15vw;
+        width: 200px;
+        height: 200px;
         text-align: center;
         margin: 10% auto;
       }
