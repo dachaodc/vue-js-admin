@@ -1,17 +1,17 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="login-box">
+    我是登录界面
   </div>
 </template>
 
 <script>
-export default {
-  name: 'About'
-}
+  export default {
+    name: 'Login'
+  }
 </script>
 
 <style lang="scss">
-  .about {
+  .login-box {
     width: 100%;
     height: 100%;
     background: white;
