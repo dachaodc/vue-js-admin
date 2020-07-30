@@ -5,9 +5,7 @@
         <div @click="clickLogin(0)" :class="activeIndex === 0 ? 'active' : 'un-active'">扫码登录</div>
         <div @click="clickLogin(1)" :class="activeIndex === 1 ? 'active' : 'un-active'">密码登录</div>
       </div>
-      <div v-if="activeIndex === 0">
-        <div id="qrcode"/>
-      </div>
+      <div v-if="activeIndex === 0" id="qrcode"/>
       <div v-else>
         密码登录
       </div>
@@ -17,18 +15,19 @@
 
 <script>
 
-  import QRCode from 'qrcode'
+  import QRCode from 'qrcodejs2'
 
   export default {
     name: 'Login',
     data () {
       return {
         activeIndex: 0,   // 选择登陆 索引
+        qrcode: {}
       }
     },
     mounted () {
-      const qrcode = document.getElementById('qrcode')
-      new QRCode(qrcode, {
+      this.qrcode = document.getElementById('qrcode')
+      new QRCode(this.qrcode, {
         text: 'https://github.com/dachaodc',
         width: 128,
         height: 128,
@@ -38,6 +37,15 @@
     },
     methods: {
       clickLogin (type) {
+        if (type === 0) {
+          new QRCode(this.qrcode, {
+            text: 'https://github.com/dachaodc',
+            width: 128,
+            height: 128,
+            colorDark: '#000000',
+            colorLight: '#ffffff'
+          })
+        }
         this.activeIndex = type
       }
     }
@@ -61,11 +69,12 @@
     .login-box {
       width: 30vw;
       height: 30vw;
-      background: rgba(0, 0, 0, .5);
+      background: rgba(0, 0, 0, 0.1);
       position: absolute;
       top: 15%;
       left: 50%;
       transform: translateX(-50%);
+      border-radius: 10px;
 
       .login-title {
         display: flex;
