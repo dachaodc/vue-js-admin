@@ -5,9 +5,21 @@
         <div @click="clickLogin(0)" :class="activeIndex === 0 ? 'active' : 'un-active'">扫码登录</div>
         <div @click="clickLogin(1)" :class="activeIndex === 1 ? 'active' : 'un-active'">密码登录</div>
       </div>
-      <div v-if="activeIndex === 0" id="qrcode"/>
-      <div v-else>
-        密码登录
+      <div v-show="activeIndex === 0" id="qrcode"/>
+      <div v-show="activeIndex === 1" class="input-content">
+        <el-input placeholder="请输入账号" v-model="account">
+          <template slot="prepend">账号</template>
+        </el-input>
+        <el-input class="input-password" show-password placeholder="请输入密码" v-model="passworrd">
+          <template slot="prepend">密码</template>
+        </el-input>
+        <div class="forget">
+          <span>忘记登录密码？</span>
+        </div>
+        <el-button class="login" type="primary">登录</el-button>
+        <div class="forget">
+          <a href="https://github.com/dachaodc">免费注册</a>
+        </div>
       </div>
     </div>
   </div>
@@ -22,30 +34,23 @@
     data () {
       return {
         activeIndex: 0,   // 选择登陆 索引
-        qrcode: {}
+        qrcode: {},
+        account: '',
+        passworrd: ''
       }
     },
     mounted () {
       this.qrcode = document.getElementById('qrcode')
       new QRCode(this.qrcode, {
         text: 'https://github.com/dachaodc',
-        width: 128,
-        height: 128,
+        width: window.innerWidth * 0.15,
+        height: window.innerWidth * 0.15,
         colorDark: '#000000',
         colorLight: '#ffffff'
       })
     },
     methods: {
       clickLogin (type) {
-        if (type === 0) {
-          new QRCode(this.qrcode, {
-            text: 'https://github.com/dachaodc',
-            width: 128,
-            height: 128,
-            colorDark: '#000000',
-            colorLight: '#ffffff'
-          })
-        }
         this.activeIndex = type
       }
     }
@@ -67,8 +72,8 @@
          #20277825, #52266325, #8a244b25);*/
 
     .login-box {
-      width: 30vw;
-      height: 30vw;
+      width: 25vw;
+      height: 25vw;
       background: rgba(0, 0, 0, 0.1);
       position: absolute;
       top: 15%;
@@ -99,8 +104,29 @@
       }
 
       #qrcode {
-        width: 130px;
-        height: 130px;
+        width: 15vw;
+        height: 15vw;
+        text-align: center;
+        margin: 10% auto;
+      }
+
+      .input-content {
+        padding: 25px;
+
+        .input-password {
+          margin: 20px 0;
+        }
+
+        .forget {
+          color: white;
+          width: 100%;
+          text-align: right;
+        }
+
+        .login {
+          width: 100%;
+          margin: 20px 0;
+        }
       }
     }
   }
