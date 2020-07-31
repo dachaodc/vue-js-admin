@@ -17,7 +17,6 @@
     -webkit-text-size-adjust: none;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
-    font-family: Helvetica;
   }
 
   body {
@@ -121,15 +120,6 @@
     background-color: #fff !important;
     padding-bottom: constant(safe-area-inset-bottom);
     padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  /* iphonex fix底部元素适配 */
-  :global(.fixed_bottom) {
-    padding-bottom: constant(safe-area-inset-bottom);
-    padding-bottom: env(safe-area-inset-bottom);
-    position: fixed;
-    z-index: 10;
-    background-color: #fff;
   }
 
   html,
